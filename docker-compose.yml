@@ -7,7 +7,7 @@ services:
       - "80:80"
       
   cadvisor:
-    image: google/cadvisor
+    image: google/cadvisor:latest
     container_name: cadvisor
     privileged: true
     devices:
