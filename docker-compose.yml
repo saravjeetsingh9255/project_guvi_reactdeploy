@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  web:
+    image: saravjeet9255/prod:latest
+    ports:
+      - "80:80"
