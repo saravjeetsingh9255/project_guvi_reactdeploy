@@ -1,22 +1,18 @@
-version: '3.7'
-
+version: '3.8'
 services:
   web:
     image: saravjeet9255/prod:latest
     ports:
-      - "80:80"
-      
+      - "80:80"      
   cadvisor:
     image: google/cadvisor:latest
     container_name: cadvisor
-    privileged: true
-    devices:
-      - "/dev/kmsg:/dev/kmsg"
-    ports:
-      - "8081:8080"
+    restart: unless-stopped
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk:/dev/disk:ro
+    ports:
+      - "8081:8080"
