@@ -1,7 +1,7 @@
 pipeline{
     agent any
     stages{
-	stage('Build and push') {
+	stage('Build and push and deploy when its merged to prod') {
             steps {
                 script {
                     if (env.GIT_BRANCH == 'origin/dev') {
@@ -24,15 +24,11 @@ pipeline{
                             sh "docker tag react-app-test-deploy ${env.dockerhubuser}/prod:latest "
 			    sh "docker login -u ${env.dockerhubuser} -p ${env.dockerhubpass}"
 			    sh "docker push ${env.dockerhubuser}/prod:latest"}
+			    echo "This is deploying the code"
+                        sh "chmod 777 deploy.sh"
+                        sh "bash deploy.sh"
                     }
                 }
-            }
-        }
-        stage("Deploy"){
-            steps{
-                echo "This is deploying the code"
-                sh "chmod 777 deploy.sh"
-                sh "bash deploy.sh"
             }
         }
     }
